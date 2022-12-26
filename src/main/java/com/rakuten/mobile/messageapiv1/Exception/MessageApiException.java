@@ -1,13 +1,16 @@
 package com.rakuten.mobile.messageapiv1.Exception;
 
 
-public class ValidationException extends Exception {
+import lombok.Getter;
+
+@Getter
+public class MessageApiException extends RuntimeException {
 
     private final int errorCode;
     private final String errorMessage;
 
 
-    public ValidationException(final int errorCode, final String errorMessage, final Throwable cause) {
+    public MessageApiException(final int errorCode, final String errorMessage, final Throwable cause) {
         super(cause);
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;

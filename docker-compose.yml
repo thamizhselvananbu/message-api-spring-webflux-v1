@@ -1,10 +1,24 @@
 ---
 version: '3'
 services:
+  mongo:
+    image: mongo:5.0.14@sha256:ae21ec58a9282480e489ef5a506a6ca55564d8343b9ca69aff3ace34638930b7
+    container_name: mongo_db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongodb_data:/usr/local/var/mongodb
+      - ./configdb:/usr/local/var/configdb
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.0
     hostname: zookeeper
     container_name: zookeeper
+    depends_on:
+      - mongo
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
